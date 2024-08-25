@@ -3,6 +3,7 @@
 import { Manrope } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import { ReactNode } from "react";
 
 const fontHeading = Manrope({
   subsets: ["latin"],
@@ -16,7 +17,7 @@ const fontBody = Manrope({
   variable: "--font-body",
 });
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={cn("antialiased", fontHeading.variable, fontBody.variable)}>{children}</body>
