@@ -1,51 +1,33 @@
-import DeployButton from "../components/DeployButton";
 import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isSupabaseConnected = canInitSupabaseClient();
-
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
-        </div>
-      </nav>
-
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6 px-4">
-          <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-
+    <div className="flex min-h-[100dvh] flex-col bg-background">
+      <header className="container mx-auto flex h-20 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="#" className="text-2xl font-bold" prefetch={false}>
+          ProfilerV2
+        </Link>
+        <AuthButton />
+      </header>
+      <main className="flex-1 align-middle">
+        <section className="container mx-auto flex max-w-5xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Simplify Athlete Readiness</h1>
+          <p className="mt-6 text-lg text-muted-foreground">Streamline athlete to coach readiness metrics and improve coaching effectiveness.</p>
+          <Button className="mt-10">Get Started</Button>
+        </section>
+      </main>
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
         <p>
-          Powered by{" "}
+          Created by{" "}
           <a
             href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
             target="_blank"
             className="font-bold hover:underline"
             rel="noreferrer"
           >
-            Supabase
+            Riley Breske
           </a>
         </p>
       </footer>
