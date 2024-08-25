@@ -98,14 +98,14 @@ export function Questionnaire() {
                   <Label htmlFor="opt-out-squat">Opt out of squat velocity</Label>
                 </div>
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full ">
                 Submit
               </Button>
             </form>
           </CardContent>
         </Card>
       </div>
-      <div className="flex-1 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div>
         <DailyMetricsCard />
       </div>
     </div>

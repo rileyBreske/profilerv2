@@ -31,11 +31,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
       console.error(error.code + " " + error.message);
       return encodedRedirect("error", "/signup", "Error trying to sign up");
     } else {
-      return encodedRedirect(
-        "success",
-        "/signup",
-        "Thanks for signing up! Please check your email for a verification link.",
-      );
+      return encodedRedirect("success", "/signup", "Thanks for signing up! Please check your email for a verification link.");
     }
   };
 
@@ -48,7 +44,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
   }
 
   return (
-    <div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
+    <div className="flex flex-col flex-1 p-4 w-full items-center">
       <Link
         href="/"
         className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
@@ -70,7 +66,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
         Back
       </Link>
 
-      <form className="flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md">
+      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4">
         <h1 className="text-2xl font-medium">Sign up</h1>
         <p className="text-sm text text-foreground/60">
           Already have an account?{" "}
@@ -82,12 +78,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
           <Label htmlFor="email">Email</Label>
           <Input name="email" placeholder="you@example.com" required />
           <Label htmlFor="password">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
+          <Input type="password" name="password" placeholder="••••••••" required />
           <SubmitButton formAction={signUp} pendingText="Signing up...">
             Sign up
           </SubmitButton>

@@ -7,11 +7,7 @@ type Props = ComponentProps<"button"> & {
   pendingText?: string;
 };
 
-export function SubmitButton({
-  children,
-  pendingText = "Submitting...",
-  ...props
-}: Props) {
+export function SubmitButton({ children, pendingText = "Submitting...", ...props }: Props) {
   const { pending, action } = useFormStatus();
 
   const isPending = pending && action === props.formAction;
@@ -19,7 +15,7 @@ export function SubmitButton({
   return (
     <button
       {...props}
-      className="bg-black h-8 flex items-center justify-center font-medium text-sm hover:bg-slate-800 transition-colors text-white rounded-md text-foreground"
+      className="bg-slate-700 h-8 flex items-center justify-center font-medium text-sm hover:bg-slate-800 transition-colors text-white rounded-md text-foreground"
       type="submit"
       aria-disabled={pending}
     >
