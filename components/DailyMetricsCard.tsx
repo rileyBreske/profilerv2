@@ -144,7 +144,14 @@ const DailyMetricsCard = () => {
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious onClick={() => handlePageChange(Math.max(1, currentPage - 1))} disabled={currentPage === 1} />
+              <PaginationPrevious
+                onClick={() => {
+                  if (currentPage > 1) {
+                    handlePageChange(currentPage - 1);
+                  }
+                }}
+                isActive={currentPage > 1}
+              />
             </PaginationItem>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <PaginationItem key={page}>
@@ -154,7 +161,14 @@ const DailyMetricsCard = () => {
               </PaginationItem>
             ))}
             <PaginationItem>
-              <PaginationNext onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} />
+              <PaginationNext
+                onClick={() => {
+                  if (currentPage < totalPages) {
+                    handlePageChange(currentPage + 1);
+                  }
+                }}
+                isActive={currentPage < 1}
+              />
             </PaginationItem>
           </PaginationContent>
         </Pagination>
