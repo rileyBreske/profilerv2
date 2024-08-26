@@ -26,7 +26,6 @@ export function Questionnaire() {
     jump2: "",
     jump3: "",
     squat_velocity: "",
-    opt_out_squat: false,
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -192,14 +191,6 @@ export function Questionnaire() {
                   onChange={(e) => handleChange("squat_velocity", e.target.value)}
                   disabled={formData.opt_out_squat}
                 />
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="opt-out-squat"
-                    checked={formData.opt_out_squat}
-                    onCheckedChange={(checked) => handleChange("opt_out_squat", checked)}
-                  />
-                  <Label htmlFor="opt-out-squat">Opt out of squat velocity</Label>
-                </div>
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Submitting..." : "Submit"}
