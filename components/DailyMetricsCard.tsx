@@ -26,7 +26,7 @@ const NoDataPlaceholder = () => (
       <CardTitle className="text-center">No Data Available</CardTitle>
     </CardHeader>
     <CardContent className="flex flex-col items-center justify-center p-6">
-      <AlertCircle className="w-16 h-16 text-muted-foreground mb-4" />
+      <AlertCircle className="w-12 h-12 text-muted-foreground mb-4" />
       <p className="text-center text-muted-foreground">
         There are currently no daily metrics to display. Start logging your daily metrics to see them here!
       </p>
@@ -167,6 +167,7 @@ const DailyMetricsCard = () => {
 };
 
 const getMoodColor = (mood: string) => {
+  //color for icon based on mood
   switch (mood) {
     case "good":
       return "text-green-500";
@@ -180,6 +181,7 @@ const getMoodColor = (mood: string) => {
 };
 
 const getSleepColor = (sleep: string) => {
+  //color for icon based on sleep
   switch (sleep) {
     case "good":
       return "text-green-500";
@@ -193,6 +195,7 @@ const getSleepColor = (sleep: string) => {
 };
 
 function FlagIcon(props: React.SVGProps<SVGSVGElement>) {
+  //icon for sleep
   return (
     <svg
       {...props}
@@ -213,6 +216,7 @@ function FlagIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 function SmileIcon(props: React.SVGProps<SVGSVGElement>) {
+  //icon for mood
   return (
     <svg
       {...props}
