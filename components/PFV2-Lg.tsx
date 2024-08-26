@@ -2,7 +2,7 @@ import React from "react";
 
 function PFV2() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" version="1" viewBox="0 0 960 412.5">
+    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" version="1" viewBox="0 0 960 412.5">
       <defs>
         <clipPath id="56f5c88335">
           <path d="M146.441 302.102h312.954v34.8H146.44zm0 0"></path>
