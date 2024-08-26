@@ -67,7 +67,7 @@ export function Questionnaire() {
         title: "Success",
         description: "Your daily metrics have been submitted.",
       });
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
