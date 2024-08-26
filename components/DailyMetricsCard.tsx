@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -8,6 +9,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { AlertCircle } from "lucide-react";
 
 interface DailyMetric {
+  id: string;
   date: string;
   mood: string;
   energy: number;
@@ -121,25 +123,27 @@ const DailyMetricsCard = () => {
       <div className="flex-1 overflow-x-auto">
         <div className="inline-flex gap-4 pb-4">
           {currentMetrics.map((metric, index) => (
-            <Card key={index} className="flex flex-col w-[300px] shrink-0">
-              <CardHeader>
-                <CardTitle>{metric.date}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-1 grid gap-4 grid-cols-1">
-                <MetricItem label="Mood" value={metric.mood} icon={<SmileIcon className={`w-5 h-5 ${getMoodColor(metric.mood)}`} />} />
-                <MetricItem label="Energy" value={`${metric.energy}%`} progress={metric.energy} />
-                <MetricItem label="Soreness" value={`${metric.soreness}%`} progress={metric.soreness} />
-                <MetricItem label="Sleep" value={metric.sleep} icon={<FlagIcon className={`w-5 h-5 ${getSleepColor(metric.sleep)}`} />} />
-                <div>
-                  <span className="text-sm font-medium">Reflection</span>
-                  <p className="text-sm text-muted-foreground">{metric.reflection}</p>
-                </div>
-                <MetricItem label="Jump 1" value={`${metric.jump1} inches`} />
-                <MetricItem label="Jump 2" value={`${metric.jump2} inches`} />
-                <MetricItem label="Jump 3" value={`${metric.jump3} inches`} />
-                <MetricItem label="Squat Velocity" value={`${metric.squat_velocity} m/s`} />
-              </CardContent>
-            </Card>
+            <Link href={`/protected/${metric.id}`} key={index} passHref>
+              <Card key={index} className="flex flex-col w-[300px] shrink-0">
+                <CardHeader>
+                  <CardTitle>{metric.date}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 grid gap-4 grid-cols-1">
+                  <MetricItem label="Mood" value={metric.mood} icon={<SmileIcon className={`w-5 h-5 ${getMoodColor(metric.mood)}`} />} />
+                  <MetricItem label="Energy" value={`${metric.energy}%`} progress={metric.energy} />
+                  <MetricItem label="Soreness" value={`${metric.soreness}%`} progress={metric.soreness} />
+                  <MetricItem label="Sleep" value={metric.sleep} icon={<FlagIcon className={`w-5 h-5 ${getSleepColor(metric.sleep)}`} />} />
+                  <div>
+                    <span className="text-sm font-medium">Reflection</span>
+                    <p className="text-sm text-muted-foreground">{metric.reflection}</p>
+                  </div>
+                  <MetricItem label="Jump 1" value={`${metric.jump1} inches`} />
+                  <MetricItem label="Jump 2" value={`${metric.jump2} inches`} />
+                  <MetricItem label="Jump 3" value={`${metric.jump3} inches`} />
+                  <MetricItem label="Squat Velocity" value={`${metric.squat_velocity} m/s`} />
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
