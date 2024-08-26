@@ -1,6 +1,7 @@
 import AuthButton from "../components/AuthButton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import PFV2Lg from "../components/PFV2-Lg";
 
 export default async function Index() {
   return (
@@ -13,6 +14,7 @@ export default async function Index() {
       </header>
       <main className="flex-1 align-middle">
         <section className="container mx-auto flex max-w-5xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:px-8">
+          <PFV2Lg />
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Simplify Athlete Readiness</h1>
           <p className="mt-6 text-lg text-muted-foreground">Streamline athlete to coach readiness metrics and improve coaching effectiveness.</p>
           <Link href="/protected">

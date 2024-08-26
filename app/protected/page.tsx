@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
 import { Questionnaire } from "@/components/Questionnaire";
 import { redirect } from "next/navigation";
+import PFV2 from "@/components/PFV2";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -21,7 +22,7 @@ export default async function ProtectedPage() {
       <div className="w-full bg-background">
         <nav className="w-full flex justify-between items-center border-b border-foreground/10 h-16 shadow-md px-5 sm:px-10">
           <a href="/" className="text-lg font-semibold text-primary">
-            ProfilerV2
+            <PFV2 />
           </a>
           <div className="flex space-x-6">
             {/* <a href="#about" className="hover:text-secondary transition-colors duration-200">
