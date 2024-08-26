@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { createClient } from "../utils/supabase/client";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { AlertCircle } from "lucide-react";
 
 interface DailyMetric {
   date: string;
@@ -19,13 +20,46 @@ interface DailyMetric {
   squat_velocity: number;
 }
 
+const NoDataPlaceholder = () => (
+  <Card className="w-full">
+    <CardHeader>
+      <CardTitle className="text-center">No Data Available</CardTitle>
+    </CardHeader>
+    <CardContent className="flex flex-col items-center justify-center p-6">
+      <AlertCircle className="w-16 h-16 text-muted-foreground mb-4" />
+      <p className="text-center text-muted-foreground">
+        There are currently no daily metrics to display. Start logging your daily metrics to see them here!
+      </p>
+    </CardContent>
+  </Card>
+);
+
+const MetricItem = ({ label, value, icon, progress }: { label: string; value: string; icon?: React.ReactNode; progress?: number }) => (
+  <div className="flex items-center justify-between">
+    <span className="text-sm font-medium">{label}</span>
+    <div className="flex items-center gap-2">
+      {icon && icon}
+      {progress !== undefined ? (
+        <>
+          <Progress value={progress} className="w-20" />
+          <span className="text-sm">{value}</span>
+        </>
+      ) : (
+        <span className="text-sm">{value}</span>
+      )}
+    </div>
+  </div>
+);
+
 const DailyMetricsCard = () => {
   const [metrics, setMetrics] = useState<DailyMetric[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 3;
 
   useEffect(() => {
     const fetchMetrics = async () => {
+      setLoading(true);
       const supabase = createClient();
 
       const {
@@ -35,11 +69,13 @@ const DailyMetricsCard = () => {
 
       if (userError) {
         console.error("Error fetching user:", userError);
+        setLoading(false);
         return;
       }
 
       if (!user) {
         console.log("No user logged in");
+        setLoading(false);
         return;
       }
 
@@ -47,14 +83,16 @@ const DailyMetricsCard = () => {
         .from("athlete_daily_metrics")
         .select("*")
         .eq("athlete_id", user.id)
-        .order("date", { ascending: false }); // Order by date, most recent first
+        .order("date", { ascending: false });
 
       if (error) {
         console.error("Error fetching daily metrics:", error);
+        setLoading(false);
         return;
       }
 
       setMetrics(athlete_daily_metrics as DailyMetric[]);
+      setLoading(false);
     };
 
     fetchMetrics();
@@ -69,6 +107,14 @@ const DailyMetricsCard = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (metrics.length === 0) {
+    return <NoDataPlaceholder />;
+  }
 
   return (
     <div className="flex flex-col h-full gap-4">
@@ -119,23 +165,6 @@ const DailyMetricsCard = () => {
     </div>
   );
 };
-
-const MetricItem = ({ label, value, icon, progress }: { label: string; value: string; icon?: React.ReactNode; progress?: number }) => (
-  <div className="flex items-center justify-between">
-    <span className="text-sm font-medium">{label}</span>
-    <div className="flex items-center gap-2">
-      {icon && icon}
-      {progress !== undefined ? (
-        <>
-          <Progress value={progress} className="w-20" />
-          <span className="text-sm">{value}</span>
-        </>
-      ) : (
-        <span className="text-sm">{value}</span>
-      )}
-    </div>
-  </div>
-);
 
 const getMoodColor = (mood: string) => {
   switch (mood) {
