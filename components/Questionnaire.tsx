@@ -208,7 +208,7 @@ export function Questionnaire() {
           </CardContent>
         </Card>
       </div>
-      <div>
+      <div className="justify-content">
         <DailyMetricsCard />
       </div>
     </div>
