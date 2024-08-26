@@ -3,16 +3,15 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { SmileIcon } from "lucide-react";
 import { createClient } from "../utils/supabase/client";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 interface DailyMetric {
   date: string;
-  mood: number;
+  mood: string;
   energy: number;
   soreness: number;
-  sleep: number;
+  sleep: string;
   reflection: string;
   jump1: number;
   jump2: number;
@@ -23,7 +22,7 @@ interface DailyMetric {
 const DailyMetricsCard = () => {
   const [metrics, setMetrics] = useState<DailyMetric[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Number of cards to show per page
+  const itemsPerPage = 3;
 
   useEffect(() => {
     const fetchMetrics = async () => {
@@ -72,86 +71,37 @@ const DailyMetricsCard = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 h-4/5">
-      <div className="flex-1 grid gap-4 md:grid-cols-3 lg:grid-cols-3 justify-between">
-        {currentMetrics.map((metric, index) => (
-          <Card key={index} className="flex flex-col w-fit">
-            <CardHeader>
-              <CardTitle>{metric.date}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1 grid gap-6">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Mood</span>
-                <div className="flex items-center gap-2">
-                  <SmileIcon className="w-5 h-5 text-green-500" />
-                  <span className="text-sm">{metric.mood}</span>
+    <div className="flex flex-col h-full gap-4">
+      <div className="flex-1 overflow-x-auto">
+        <div className="inline-flex gap-4 pb-4">
+          {currentMetrics.map((metric, index) => (
+            <Card key={index} className="flex flex-col w-[300px] shrink-0">
+              <CardHeader>
+                <CardTitle>{metric.date}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-1 grid gap-4 grid-cols-1">
+                <MetricItem label="Mood" value={metric.mood} icon={<SmileIcon className={`w-5 h-5 ${getMoodColor(metric.mood)}`} />} />
+                <MetricItem label="Energy" value={`${metric.energy}%`} progress={metric.energy} />
+                <MetricItem label="Soreness" value={`${metric.soreness}%`} progress={metric.soreness} />
+                <MetricItem label="Sleep" value={metric.sleep} icon={<FlagIcon className={`w-5 h-5 ${getSleepColor(metric.sleep)}`} />} />
+                <div>
+                  <span className="text-sm font-medium">Reflection</span>
+                  <p className="text-sm text-muted-foreground">{metric.reflection}</p>
                 </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Energy</span>
-                <div className="flex items-center gap-2">
-                  <Progress value={metric.energy} className="w-20" />
-                  <span className="text-sm">{metric.energy}%</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between gap-12">
-                <span className="text-sm font-medium">Soreness</span>
-                <div className="flex items-center gap-2">
-                  <Progress value={metric.soreness} className="w-20" />
-                  <span className="text-sm">{metric.soreness}%</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Sleep</span>
-                <div className="flex items-center gap-2">
-                  <SmileIcon className="w-5 h-5 text-green-500" />
-                  <span className="text-sm">{metric.sleep}</span>
-                </div>
-              </div>
-              <div>
-                <span className="text-sm font-medium">Reflection</span>
-                <p className="text-sm text-muted-foreground">{metric.reflection}</p>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Jump 1</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">{metric.jump1} inches</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Jump 2</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">{metric.jump2} inches</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Jump 3</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">{metric.jump3} inches</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Squat Velocity</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm">{metric.squat_velocity} m/s</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                <MetricItem label="Jump 1" value={`${metric.jump1} inches`} />
+                <MetricItem label="Jump 2" value={`${metric.jump2} inches`} />
+                <MetricItem label="Jump 3" value={`${metric.jump3} inches`} />
+                <MetricItem label="Squat Velocity" value={`${metric.squat_velocity} m/s`} />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
       {metrics.length > itemsPerPage && (
-        <Pagination>
+        <Pagination className="self-center">
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious
-                onClick={() => {
-                  if (currentPage > 1) {
-                    handlePageChange(currentPage - 1);
-                  }
-                }}
-                isActive={currentPage > 1}
-              />
+              <PaginationPrevious onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)} isActive={currentPage > 1} />
             </PaginationItem>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <PaginationItem key={page}>
@@ -161,14 +111,7 @@ const DailyMetricsCard = () => {
               </PaginationItem>
             ))}
             <PaginationItem>
-              <PaginationNext
-                onClick={() => {
-                  if (currentPage < totalPages) {
-                    handlePageChange(currentPage + 1);
-                  }
-                }}
-                isActive={currentPage < 1}
-              />
+              <PaginationNext onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)} isActive={currentPage < totalPages} />
             </PaginationItem>
           </PaginationContent>
         </Pagination>
@@ -176,5 +119,90 @@ const DailyMetricsCard = () => {
     </div>
   );
 };
+
+const MetricItem = ({ label, value, icon, progress }: { label: string; value: string; icon?: React.ReactNode; progress?: number }) => (
+  <div className="flex items-center justify-between">
+    <span className="text-sm font-medium">{label}</span>
+    <div className="flex items-center gap-2">
+      {icon && icon}
+      {progress !== undefined ? (
+        <>
+          <Progress value={progress} className="w-20" />
+          <span className="text-sm">{value}</span>
+        </>
+      ) : (
+        <span className="text-sm">{value}</span>
+      )}
+    </div>
+  </div>
+);
+
+const getMoodColor = (mood: string) => {
+  switch (mood) {
+    case "good":
+      return "text-green-500";
+    case "neutral":
+      return "text-yellow-500";
+    case "bad":
+      return "text-red-500";
+    default:
+      return "text-gray-500";
+  }
+};
+
+const getSleepColor = (sleep: string) => {
+  switch (sleep) {
+    case "good":
+      return "text-green-500";
+    case "average":
+      return "text-yellow-500";
+    case "poor":
+      return "text-red-500";
+    default:
+      return "text-gray-500";
+  }
+};
+
+function FlagIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+      <line x1="4" x2="4" y1="22" y2="15" />
+    </svg>
+  );
+}
+
+function SmileIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+      <line x1="9" x2="9.01" y1="9" y2="9" />
+      <line x1="15" x2="15.01" y1="9" y2="9" />
+    </svg>
+  );
+}
 
 export default DailyMetricsCard;
