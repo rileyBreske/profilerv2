@@ -15,7 +15,9 @@ export default async function Index() {
         <section className="container mx-auto flex max-w-5xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Simplify Athlete Readiness</h1>
           <p className="mt-6 text-lg text-muted-foreground">Streamline athlete to coach readiness metrics and improve coaching effectiveness.</p>
-          <Button className="mt-10">Get Started</Button>
+          <Link href="/protected">
+            <Button className="mt-10">Get Started</Button>
+          </Link>
         </section>
       </main>
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
