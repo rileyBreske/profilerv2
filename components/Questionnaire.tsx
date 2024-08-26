@@ -58,7 +58,7 @@ export function Questionnaire() {
         jump1: formData.jump1 ? parseFloat(formData.jump1) : null,
         jump2: formData.jump2 ? parseFloat(formData.jump2) : null,
         jump3: formData.jump3 ? parseFloat(formData.jump3) : null,
-        squat_velocity: formData.opt_out_squat ? null : formData.squat_velocity ? parseFloat(formData.squat_velocity) : null,
+        squat_velocity: formData.squat_velocity ? parseFloat(formData.squat_velocity) : null,
       });
 
       if (error) throw error;
@@ -189,7 +189,6 @@ export function Questionnaire() {
                   placeholder="Enter squat velocity"
                   value={formData.squat_velocity}
                   onChange={(e) => handleChange("squat_velocity", e.target.value)}
-                  disabled={formData.opt_out_squat}
                 />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
