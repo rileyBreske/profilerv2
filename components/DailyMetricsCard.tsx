@@ -17,7 +17,7 @@ interface DailyMetric {
   jump1: number;
   jump2: number;
   jump3: number;
-  squatVelocity: number;
+  squat_velocity: number;
 }
 
 const DailyMetricsCard = () => {
@@ -133,7 +133,7 @@ const DailyMetricsCard = () => {
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Squat Velocity</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm">{metric.squatVelocity} m/s</span>
+                  <span className="text-sm">{metric.squat_velocity} m/s</span>
                 </div>
               </div>
             </CardContent>
