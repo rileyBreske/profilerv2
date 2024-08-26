@@ -1,5 +1,5 @@
 <a href="https://github.com/rileyBreske/profilerv2">
-  <img alt="ProfilerV2 - The fastest way to build apps with Next.js and Supabase" src="https://imgur.com/a/InGfmTI">
+  <img alt="ProfilerV2 - The fastest way to build apps with Next.js and Supabase" src="https://github.com/rileyBreske/profilerv2/blob/main/app/Homepage.png">
   <h1 align="center">ProfilerV2</h1>
 </a>
 
