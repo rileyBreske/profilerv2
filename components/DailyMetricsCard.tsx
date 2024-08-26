@@ -124,7 +124,7 @@ const DailyMetricsCard = () => {
         <div className="inline-flex gap-4 pb-4">
           {currentMetrics.map((metric, index) => (
             <Link href={`/protected/${metric.id}`} key={index} passHref>
-              <Card key={index} className="flex flex-col w-[300px] shrink-0">
+              <Card key={index} className="flex flex-col w-[300px] h-[600px] shrink-0">
                 <CardHeader>
                   <CardTitle>{metric.date}</CardTitle>
                 </CardHeader>
