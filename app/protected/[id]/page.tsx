@@ -61,11 +61,8 @@ export default async function Page({ params }: { params: { id: string } }) {
             >
               <polyline points="15 18 9 12 15 6" />
             </svg>{" "}
-            Back
+            ProfilerV2
           </Link>
-        </div>
-        <div className="flex space-x-6">
-          <PFV2 />
         </div>
         <AuthButton />
       </nav>
