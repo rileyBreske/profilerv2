@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, CSSProperties } from "react";
 import Link from "next/link";
 import { createClient } from "../utils/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { AlertCircle } from "lucide-react";
+
+import { lineSpinner } from "ldrs";
+
+lineSpinner.register();
 
 // Types
 interface DailyMetric {
@@ -196,7 +200,11 @@ export default function DailyMetricsCard() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center fixed inset-0 ">
+        <l-line-spinner size="55" stroke="4" speed="1.1" color="white" />
+      </div>
+    );
   }
 
   if (metrics.length === 0) {
