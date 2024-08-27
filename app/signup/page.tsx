@@ -66,7 +66,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
         Back
       </Link>
 
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4">
+      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4 pt-36">
         <h1 className="text-2xl font-medium">Sign up</h1>
         <p className="text-sm text text-foreground/60">
           Already have an account?{" "}

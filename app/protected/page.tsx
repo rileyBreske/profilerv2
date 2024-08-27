@@ -5,6 +5,7 @@ import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
 import { Questionnaire } from "@/components/Questionnaire";
 import { redirect } from "next/navigation";
 import PFV2 from "@/components/PFV2";
+import Link from "next/link";
 
 export default async function ProtectedPage() {
   const supabase = createClient();

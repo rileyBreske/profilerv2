@@ -49,8 +49,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </svg>{" "}
         Back
       </Link>
-
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4">
+      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4 pt-36">
         <h1 className="text-2xl font-medium">Log in</h1>
         <p className="text-sm text-foreground/60">
           Don't have an account?{" "}
@@ -64,19 +63,11 @@ export default function Login({ searchParams }: { searchParams: Message }) {
           <div className="flex justify-between items-center">
             <Label htmlFor="password">Password</Label>
 
-            <Link
-              className="text-sm text-blue-600 underline"
-              href="/forgot-password"
-            >
+            <Link className="text-sm text-blue-600 underline" href="/forgot-password">
               Forgot Password?
             </Link>
           </div>
-          <Input
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
+          <Input type="password" name="password" placeholder="••••••••" required />
           <SubmitButton formAction={signIn} pendingText="Signing In...">
             Log in
           </SubmitButton>
