@@ -130,7 +130,7 @@ const MetricItem = ({ label, value, icon, progress }: { label: string; value: st
 
 const MetricCard = ({ metric }: { metric: DailyMetric }) => (
   <Link href={`/protected/${metric.id}`} passHref>
-    <Card className="flex flex-col w-[300px] h-[600px] shrink-0 hover:bg-gray-800">
+    <Card className="flex flex-col w-[301px] h-[600px] shrink-0">
       <CardHeader>
         <CardTitle>{metric.date}</CardTitle>
       </CardHeader>
