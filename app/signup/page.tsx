@@ -13,7 +13,6 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
     const email = formData.get("email")?.toString();
     const password = formData.get("password")?.toString();
     const supabase = createClient();
-    const origin = headers().get("origin");
 
     if (!email || !password) {
       return { error: "Email and password are required" };
@@ -23,7 +22,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
       email,
       password,
       options: {
-        emailRedirectTo: `${origin}/auth/callback`,
+        emailRedirectTo: `https://profilerv2.vercel.app/auth/callback`,
       },
     });
 
