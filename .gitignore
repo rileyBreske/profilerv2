@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env
+db_cluster-20-02-2025@05-35-25.backup
+db_cluster-20-02-2025@05-35-25.backup:Zone.Identifier
